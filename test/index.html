@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			margin: 50px;
+			/* overflow: hidden; */
+		}
+
+		input {
+			border: none;
+		}
+
+		ul,li,ol{
+			list-style:none;
+		}
+		
+		.left{
+			float: left;
+			width: 490px;
+			height: auto;
+			border: 1px solid #eaeff4;
+			padding: 50px 40px;
+		}
+
+		.right{
+			float: left;
+			width: 490px;
+			margin-left: 50px;
+		}
+
+		.title {
+			padding: 5px 10px;
+			border: 1px solid #ccc;
+			font-size: 20px;
+			font-weight: 600;
+			text-align: center;
+			margin: 0 auto;
+			outline: none;
+			margin-left: 100px;
+		}
+
+		.contxt {
+			border: 1px solid #ccc;
+			padding: 10px 16px;
+			border-radius: 8px;
+			margin-top: 20px;
+			outline: none;
+		}
+		.right h6{
+			font-size: 18px;
+			text-align: center;
+			color: #999999;
+		}
+		ul li{
+			background: #f5f5f5;
+			padding: 10px 0 10px 18px;
+			font-size: 14px;
+			color: #333;
+		}
+		ul p{
+			text-align: center;
+			margin: 10px 0px;
+		}
+		
+		.ts{
+			color: #999;
+			font-size: 14px;
+			line-height: 24px;
+		}
+		.left_div{
+			margin-top: 40px;
+		}
+		.left_div p{
+			float: left;
+			margin: 0 20px;
+			margin-top: 80px;
+		}
+		.left_div .code{
+			float: left;
+			margin-left: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<!--startprint1--><div class="left">
+			<!--<div contenteditable="true" class="title">尊敬的新生家长朋友</div>-->
+			<input type="text" class="title" value="尊敬的新生家长朋友" maxlength="20">
+			<div contenteditable="true" class="contxt">
+				内容
+			</div>
+			<div class="left_div">
+				<p style="font-size:20px;color:#333;text-align:center">新生扫码开通<br>智慧树</p>
+				<div class="code">
+					<div class="qrcBody" id="qrcBody">
+		            </div>
+		            <div class="qrcBody" id="qrcBodyImg" style="display:none">
+		                 <img class= "qrcImg" src="">
+		                 <img class="align-center-middle upLogo" src="" >
+		            </div>
+				</div>
+			</div>
+		</div><!--endprint1-->
+		<div class="right">
+			<h6>使用说明</h6>
+			<ul>
+				<li>1、检查并调整左侧信息，以便更好的指引家长扫码开通智慧树</li>
+				<p><img src="down.png"></p>
+				<li>2、点击下方打印按钮打印信息并将打印出的纸张张贴在班级或园所门口</li>
+				<p><img src="down.png"></p>
+				<li>3、家长阅读并使用微信扫描二维码，填写幼儿信息提交入园申请</li>
+				<p><img src="down.png"></p>
+				<li>4、教师在手机端查看家长提交的信息并审核，即可完成幼儿入园操作<br>（申请入园和消息页面均可看到家长提交的信息）</li>
+			</ul>
+			<p class="ts" style="margin-top: 24px;">1、左侧文案仅为智慧树提供的示例文案，若您有其他想要对家长说的，可直接在文本框中进行调整</p>
+			<p class="ts">2、您也可直接在手机端进入智慧树APP，在通讯录界面，点击右上角“添加”，直接向家长发送入园申请信息表</p>
+		</div>
+		<div style="clear:both"></div>
+		<button id="btn1">取消</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		<button id="btn2">预览</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		<button id="btn3" onclick="preview(1)">打印</button>
+	</div>
+	<script src="jquery.js"></script>
+	<script src="jquery.qrcode.min.js"></script>
+	<script>
+		$("#qrcBody").qrcode({ 
+			width: 205, //宽度 
+			height:205, //高度 
+			text: "www.baidu.com" //任意内容 
+		}); 
+		//canvas转img
+		var qrcSrc = $("canvas")[0].toDataURL();
+      	var upLogSrc = "img/kaoshen.jpg";
+      	$("#qrcBodyImg .qrcImg").attr("src", qrcSrc);
+      	$("#qrcBodyImg .upLogo").attr("src", upLogSrc);
+      	$("#qrcBody").hide();//隐藏canvas部分
+      	$("#qrcBodyImg").show();//显示img部分
+		function preview(oper)         
+		{  
+			if (oper < 10)  
+			{  
+				bdhtml=window.document.body.innerHTML;//获取当前页的html代码  
+				sprnstr="<!--startprint"+oper+"-->";//设置打印开始区域  
+				eprnstr="<!--endprint"+oper+"-->";//设置打印结束区域  
+				prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18); //从开始代码向后取html  
+				  
+				prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));//从结束代码向前取html  
+				window.document.body.innerHTML=prnhtml;  
+				window.print();  
+				window.document.body.innerHTML=bdhtml;  
+			} else {  
+				window.print();  
+			}  
+		}  
+
+		
+
+	</script>
+	<script>
+		//window.print()
+
+		//判断一个单词是否是回文
+		function checkPalindrom(str) {
+			return str == str.split('').reverse().join('')
+		}
+		var str = "abba"
+		console.log(checkPalindrom(str))
+	</script>
+</body>
+
+</html>
